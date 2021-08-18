@@ -1,9 +1,27 @@
-import React, {useEffect, useState} from 'react'
+import "./Reels.css";
+import React, { useEffect, useState } from 'react'
 import { database } from '../../FirebaseAuth/firebase';
 
 function Reels(props) {
     let { user } = props;
     let [reels, setReels] = useState([]);
+
+    const handleLike = (e) => {
+        if (e.target.classList.contains('liked')) {
+            e.target.classList.remove("liked")
+            e.target.innerText = "favorite_border";
+        }
+        else {
+            e.target.classList.add('liked');
+            e.target.innerText = "favorite"
+        }
+    }
+
+    const handleVolume = () => {
+        let video = document.querySelector(".video-container video");
+        video.muted = !video.muted;
+        console.log("muted")
+    }
 
     useEffect(() => {
         async function data() {
@@ -29,24 +47,40 @@ function Reels(props) {
                             {user ? <div>{user.fullName}</div> : <></>}
                         </div>
                         <div className="video-container">
+
+                            <span className="material-icons" id="mute-icon"
+                                onClick={handleVolume}
+                            >volume_off</span>
+                            
+                            <span className="material-icons" id="play-icon"
+                                onClick={function (e) {
+                                    e.target.nextSibling.click();
+                                }}
+                            >play_arrow</span>
+
                             <video
                                 src={videoObj.videoUrl}
                                 autoPlay={true}
                                 muted={true}
                                 controls={false}
                                 onClick={function (e) {
-                                    e.target.muted = !e.target.muted
+                                    if (!e.target.paused) {
+                                        e.target.previousSibling.style.display = "block"
+                                        e.target.pause();
+                                    }
+                                    else {
+                                        e.target.previousSibling.style.display = "none"
+                                        e.target.play();
+                                    }
                                 }}
                             >
                             </video>
                         </div>
                         <div className="button-container">
-                            <span class="icons material-icons-outlined" id="like-icon"
-                                // onClick={function (e) {
-                                //     e.tar
-                                // }}
+                            <span className="icons material-icons-outlined" id="like-icon"
+                                onClick={handleLike}
                             >favorite_border</span>
-                            <span class="icons material-icons-outlined" id = "comment-icon">mode_comment</span>
+                            <span className="icons material-icons-outlined" id = "comment-icon">mode_comment</span>
                         </div>
                         {/* <div className="comment-container">
                             <div className="likes">30 likes</div>

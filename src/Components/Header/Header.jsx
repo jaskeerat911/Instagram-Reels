@@ -1,3 +1,4 @@
+import "./Header.css"
 import React, { useContext } from 'react'
 import logo from '../Feed/Instagram-Logo.png';
 import { NavLink } from 'react-router-dom'

@@ -1,0 +1,47 @@
+.header-container{
+    width: 100%;
+    height: 3.5rem;
+    background-color: #fff;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: space-around;
+}
+
+.header-container .logo-container{
+    height: 100%;
+    width: 12rem;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-container .logo-container img{
+    width: 8rem;
+}
+
+.header-container .function-container{
+    height: 100%;
+    width: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.header-container .function-container .icons{
+    font-size: 30px;
+    color: black;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.header-container .function-container #profilePic{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.header-container .function-container .upload-container input{
+    display: none;
+}
