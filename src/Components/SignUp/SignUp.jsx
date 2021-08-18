@@ -20,6 +20,15 @@ function SignUp(props) {
         }
     });
 
+    const focusListener = (e) => {
+        if (e.target.value) {
+            e.target.parentElement.classList.add('focus');
+        }
+        else {
+            e.target.parentElement.classList.remove('focus');
+        }
+    }
+
     const signupFn = async () => {
         console.log("sign up function called");
         try {
@@ -56,13 +65,13 @@ function SignUp(props) {
     };
 
     return (
-        <div className="container">
-            <div className="signup-container">
+        <div className="signup-container">
+            <div className="input-container">
                 <div className="logo-container">
                     <img src={logo} alt="Instagram" />
                     <div>Sign up to see photos and videos from your friends.</div>
                 </div>
-                <div className="input-container">
+                <div className="input-field-container">
                     <div className="input-field">
                         <span>Email</span>
                         <input
@@ -72,6 +81,7 @@ function SignUp(props) {
                             onChange={function (e) {
                                 setEmail(e.target.value);
                             }}
+                            onKeyUp = {focusListener}
                         />
                     </div>
                     <div className="input-field">
@@ -83,6 +93,7 @@ function SignUp(props) {
                             onChange={function (e) {
                                 setFullName(e.target.value);
                             }}
+                            onKeyUp = {focusListener}
                         />
                     </div>
                     <div className="input-field">
@@ -94,6 +105,7 @@ function SignUp(props) {
                             onChange={function (e) {
                                 setPassword(e.target.value);
                             }}
+                            onKeyUp = {focusListener}
                         />
                     </div>
                     <div className="file-upload-wrapper" data-text = 'Select your file'>
@@ -107,13 +119,15 @@ function SignUp(props) {
                             }}
                         />
                     </div>
-                    <button className="signup-btn" onClick={signupFn}>Sign Up</button>
+                    <div className="input-field">
+                        <button className="signup-btn" onClick={signupFn}>Sign Up</button>
+                    </div>
                     <div className = "terms">By signing up, you agree to our <b>Terms</b> , <b>Data Policy</b> and <b>Cookies Policy</b> .</div>
                 </div>
             </div>
-            <div className="login-nav-container">
-                <div>
-                    Have an account? <NavLink className = "nav-link" to = "/login">Log In</NavLink>
+            <div className="input-container">
+                <div className = "login-nav-container">
+                    Have an account?&nbsp;<NavLink className = "nav-link" to = "/login">Log In</NavLink>
                 </div>
             </div>
         </div>

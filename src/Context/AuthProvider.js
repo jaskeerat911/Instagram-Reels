@@ -18,7 +18,6 @@ export default function AuthProvider({ children }) {
 
     useEffect(() => {
         function action(user) {
-            console.log("User : ", user);
             setCurrentUser(user);
             setLoading(false);
         }

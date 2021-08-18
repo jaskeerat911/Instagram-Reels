@@ -3,9 +3,9 @@ import Navigator from './navigator';
 
 function App() {
     return (
-        <>
+        <div className = "container">
             <Navigator></Navigator>
-        </>      
+        </div>      
     );
 }
 

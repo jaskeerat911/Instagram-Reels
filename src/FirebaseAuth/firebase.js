@@ -10,7 +10,8 @@ const firestore = firebase.firestore();
 export const storage = firebase.storage();
 
 export const database = {
-    users: firestore.collection('users')
+    users: firestore.collection('users'),
+    reels: firestore.collection('reels')
 }
 
 export default firebase;
