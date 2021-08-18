@@ -6,7 +6,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 
 function Header(props) {
     let {currentUser} = useContext(AuthContext)
-    let { user } = props
+    let { user, setUploadLoader } = props
 
     return (
         <div className = "header-container">
@@ -15,7 +15,7 @@ function Header(props) {
             </div>
             <div className="function-container">
                 <NavLink to="/feed"><span className=" icons material-icons" id = "home">home</span></NavLink>
-                <Upload user = {user} uid = {currentUser.uid}></Upload>
+                <Upload user = {user} uid = {currentUser.uid} setUploadLoader = {setUploadLoader}></Upload>
                 {user ? <NavLink to = "/profile"><img src={user.profileUrl} alt="DP" className = "icons" id = "profilePic" /></NavLink> : <></>}
             </div>
         </div>

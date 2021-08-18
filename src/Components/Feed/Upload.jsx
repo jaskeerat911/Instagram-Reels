@@ -3,6 +3,7 @@ import firebase, { database, storage } from '../../FirebaseAuth/firebase';
 import uuid from 'react-uuid';
 
 function Upload(props) {
+    let {setUploadLoader} = props 
     
     const handleUpload = async (e) => {
         let file = e?.target?.files[0];
@@ -15,6 +16,7 @@ function Upload(props) {
                 uploadListener.on("state_changed", onprogress, onerror, onsucess);
 
                 function onprogress(snapshot) {
+                    setUploadLoader(true);
                     let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log(progress);
                 }
@@ -42,6 +44,7 @@ function Upload(props) {
                     database.users.doc(uid).update({
                         reels: updatedReelsIds,
                     });
+                    setUploadLoader(false);
                 }
             } catch (err) {}
     }

@@ -10,6 +10,7 @@ function Feed() {
     let { currentUser } = useContext(AuthContext);
     let [loader, setLoader] = useState(false);
     let [user, setUser] = useState(null);
+    let [uplodLoader, setUploadLoader] = useState(false);
 
     useEffect(() => {
         async function data() {
@@ -25,8 +26,11 @@ function Feed() {
     return (
         loader ? <Loader></Loader> :
         <div className = "feed-container">
-            <Header user = {user}></Header>
-            <Reels></Reels>
+            <Header user = {user} setUploadLoader = {setUploadLoader}></Header>
+            {uplodLoader ? <div class="linear-activity">
+                                <div class="indeterminate"></div>
+                            </div> : <></>}
+            <Reels user = {user}></Reels>
         </div>
     )
 }
