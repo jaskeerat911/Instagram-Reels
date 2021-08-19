@@ -126,9 +126,9 @@
     margin-right: 5px;
 }
 
-.reels-container .reel-container .comment-container .comments .comment #user-comment{
+/* .reels-container .reel-container .comment-container .comments .comment #user-comment{
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;  
     overflow: hidden;
-}
+} */

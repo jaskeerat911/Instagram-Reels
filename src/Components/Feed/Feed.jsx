@@ -9,25 +9,29 @@ import Loader from "../Loader/Loader"
 function Feed() {
     let { currentUser } = useContext(AuthContext);
     let [user, setUser] = useState(null);
+    let [loader, setLoader] = useState(false);
     let [uploadLoader, setUploadLoader] = useState(false);
 
     useEffect(() => {
+        setLoader(true);
         async function data() {
             let user = await database.users.doc(currentUser.uid).get();
             setUser(user.data());
         }
         data();
+        setLoader(false);
     }, []);
     
     
     return (
-        user ?<div className = "feed-container">
+        loader ? <Loader></Loader> :
+            <div className="feed-container">
                 <Header user = {user} setUploadLoader = {setUploadLoader}></Header>
                 {uploadLoader ? <div className="linear-activity">
                                     <div className="indeterminate"></div>
                                 </div> : <></>}
-                <Reels user = {user}></Reels>
-            </div> : <Loader></Loader>
+                <Reels></Reels>
+            </div> 
     )
 }
 

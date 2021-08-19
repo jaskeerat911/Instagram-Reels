@@ -75,7 +75,7 @@ hr{
 }
 
 .profile-container .user-profile-container .posts-container .posts{
-    width: 78%;
+    width: 66%;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;

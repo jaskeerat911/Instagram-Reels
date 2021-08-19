@@ -2,23 +2,55 @@ import "./Reels.css";
 import React, { useContext, useEffect, useState } from 'react'
 import { database } from '../../FirebaseAuth/firebase';
 import { AuthContext } from "../../Context/AuthProvider";
+import userEvent from "@testing-library/user-event";
 
-function Reels(props) {
-    let { user } = props;
+function Reels() {
     let { currentUser } = useContext(AuthContext);
+    let [user, setUser] = useState(null);
     let [reels, setReels] = useState([]);
 
-    const handleLike = (e) => {
+    useEffect(() => {
+        async function data() {
+            let user = await database.users.doc(currentUser.uid).get();
+            setUser(user.data());
+        }
+        data();
+    }, [user]);
+
+    const handleLike = async (videoObj, e) => {
+        let likesCount = videoObj.likes;
         if (e.target.classList.contains('liked')) {
             e.target.classList.remove("liked")
             e.target.innerText = "favorite_border";
+            
+            database.reels.doc(videoObj.videoId).update({
+                likes: likesCount - 1
+            })
+
+            let likeArray = user.likes.filter(function (value) {
+                return value !== videoObj.videoId
+            });
+
+            database.users.doc(currentUser.uid).update({
+                likes: likeArray
+            })
+
+            
         }
         else {
             e.target.classList.add('liked');
-            e.target.innerText = "favorite"
+            e.target.innerText = "favorite";
 
-            console.log(e);
+            database.reels.doc(videoObj.videoId).update({
+                likes: likesCount + 1
+            })
+
+            let likeArray = [...user.likes, videoObj.videoId];
+            database.users.doc(currentUser.uid).update({
+                likes: likeArray
+            })
         }
+
     }
 
     const handleVolume = (e) => {
@@ -78,15 +110,18 @@ function Reels(props) {
                             >
                             </video>
                         </div>
-                        {console.log(videoObj)}
                         <div className="button-container">
-                            <span className="icons material-icons-outlined" id="like-icon"
-                                onClick={handleLike}
-                            >favorite_border</span>
+                            {user.likes.includes(videoObj.videoId) ?
+                                <span className="icons material-icons-outlined liked" id="like-icon"
+                                    onClick={handleLike.bind(this,videoObj)}
+                                >favorite</span> : 
+                                <span className="icons material-icons-outlined" id="like-icon"
+                                    onClick={handleLike.bind(this,videoObj)}
+                                >favorite_border</span>}
                             <span className="icons material-icons-outlined" id = "comment-icon">mode_comment</span>
                         </div>
-                        {/* <div className="comment-container">
-                            <div className="likes">30 likes</div>
+                        <div className="comment-container">
+                            <div className="likes">{videoObj.likes} likes</div>
                             <div className="comments">
                                 <div className="comment">
                                     <div id="user-name">Jakeerat</div>
@@ -97,7 +132,7 @@ function Reels(props) {
                                     <span id = "user-comment">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam, non laborum culpa ducimus illum doloremque amet dolorum asperiores consequuntur ipsa nesciunt perferendis. Ratione, impedit rem. Beatae maiores natus, voluptates, sint eum hic saepe quibusdam doloribus neque fuga iure, tempore cum repellendus? Ut repudiandae impedit aperiam harum. Itaque iste autem reiciendis.</span>
                                 </div>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 )
             })}

@@ -31,10 +31,11 @@ function Upload(props) {
                     let { user, uid } = props;
                     
                     database.reels.doc(ruid).set({
+                        videoId: ruid,
                         videoUrl: downloadUrl,
                         authorName: user.fullName,
                         authourDPUrl: user.profileUrl,
-                        likes: [],
+                        likes: 0,
                         comments: [],
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     });
