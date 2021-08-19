@@ -1,9 +1,11 @@
 import "./Reels.css";
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { database } from '../../FirebaseAuth/firebase';
+import { AuthContext } from "../../Context/AuthProvider";
 
 function Reels(props) {
     let { user } = props;
+    let { currentUser } = useContext(AuthContext);
     let [reels, setReels] = useState([]);
 
     const handleLike = (e) => {
@@ -14,13 +16,14 @@ function Reels(props) {
         else {
             e.target.classList.add('liked');
             e.target.innerText = "favorite"
+
+            console.log(e);
         }
     }
 
-    const handleVolume = () => {
-        let video = document.querySelector(".video-container video");
+    const handleVolume = (e) => {
+        let video = e.target.nextSibling.nextSibling;
         video.muted = !video.muted;
-        console.log("muted")
     }
 
     useEffect(() => {
@@ -42,9 +45,9 @@ function Reels(props) {
             {reels.map(function (videoObj, idx) {
                 return (
                     <div className="reel-container" key={idx}>
-                        <div className="profile-container">
-                            {user ? <img src={user.profileUrl} alt="DP" /> : <></>}
-                            {user ? <div>{user.fullName}</div> : <></>}
+                        <div className="user-container">
+                            {user ? <img src={videoObj.authourDPUrl} alt="DP" /> : <></>}
+                            {user ? <div>{videoObj.authorName}</div> : <></>}
                         </div>
                         <div className="video-container">
 
@@ -60,8 +63,7 @@ function Reels(props) {
 
                             <video
                                 src={videoObj.videoUrl}
-                                autoPlay={true}
-                                muted={true}
+                                autoPlay={false}
                                 controls={false}
                                 onClick={function (e) {
                                     if (!e.target.paused) {
@@ -76,6 +78,7 @@ function Reels(props) {
                             >
                             </video>
                         </div>
+                        {console.log(videoObj)}
                         <div className="button-container">
                             <span className="icons material-icons-outlined" id="like-icon"
                                 onClick={handleLike}

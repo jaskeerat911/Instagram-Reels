@@ -33,7 +33,7 @@ function Upload(props) {
                     database.reels.doc(ruid).set({
                         videoUrl: downloadUrl,
                         authorName: user.fullName,
-                        authourDPicUrl: user.profileUrl,
+                        authourDPUrl: user.profileUrl,
                         likes: [],
                         comments: [],
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),

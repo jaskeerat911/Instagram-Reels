@@ -1,10 +1,10 @@
 let firebaseConfig = {
-    apiKey: "AIzaSyCgYNJmapeQ9en3iStuuCtGJv8KD0G5N5I",
-    authDomain: "insta-reels-9118b.firebaseapp.com",
-    projectId: "insta-reels-9118b",
-    storageBucket: "insta-reels-9118b.appspot.com",
-    messagingSenderId: "540100548546",
-    appId: "1:540100548546:web:1a5034f086cf726ca4285b"
+    apiKey: "AIzaSyAb84MRca8UwG3z2tzUyIxBLWbrRCMkVuw",
+    authDomain: "insta-reels-6fd9c.firebaseapp.com",
+    projectId: "insta-reels-6fd9c",
+    storageBucket: "insta-reels-6fd9c.appspot.com",
+    messagingSenderId: "321697065874",
+    appId: "1:321697065874:web:3fb303824d8155c1caaf4b"
 };
 
 export default firebaseConfig;
