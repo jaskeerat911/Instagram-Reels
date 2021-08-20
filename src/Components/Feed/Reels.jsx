@@ -2,12 +2,12 @@ import "./Reels.css";
 import React, { useContext, useEffect, useState } from 'react'
 import { database } from '../../FirebaseAuth/firebase';
 import { AuthContext } from "../../Context/AuthProvider";
-import userEvent from "@testing-library/user-event";
 
 function Reels() {
     let { currentUser } = useContext(AuthContext);
     let [user, setUser] = useState(null);
     let [reels, setReels] = useState([]);
+    let [comments, setComments] = useState([]);
 
     useEffect(() => {
         async function data() {
@@ -50,7 +50,21 @@ function Reels() {
                 likes: likeArray
             })
         }
+    }
 
+    const postComment = async (videoObj, e) => {
+        let addComment = {
+            [user.fullName] : e.target.value
+        };
+
+        let updatedComments = [...videoObj.comments, addComment];
+        
+        setComments(updatedComments);
+        database.reels.doc(videoObj.videoId).update({
+            comments : updatedComments
+        })
+
+        e.target.value = "";
     }
 
     const handleVolume = (e) => {
@@ -63,11 +77,17 @@ function Reels() {
             let entries = await database.reels.orderBy("createdAt", "desc").get();
 
             let reels = [];
+            let comments = [];
             entries.forEach((entry) => {
                 reels.push(entry.data());
+                let allComments = entry.data().comments;
+                allComments.forEach((comment) => {
+                    comments.push(comment);
+                })
             })
 
             setReels(reels);
+            setComments(comments);
         }
         data();
     },[reels])
@@ -123,14 +143,39 @@ function Reels() {
                         <div className="comment-container">
                             <div className="likes">{videoObj.likes} likes</div>
                             <div className="comments">
-                                <div className="comment">
-                                    <div id="user-name">Jakeerat</div>
-                                    <div>hello!! how are you?</div>
-                                </div>
-                                <div className="comment">
-                                    <span id="user-name">Jakeerat</span>
-                                    <span id = "user-comment">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quam, non laborum culpa ducimus illum doloremque amet dolorum asperiores consequuntur ipsa nesciunt perferendis. Ratione, impedit rem. Beatae maiores natus, voluptates, sint eum hic saepe quibusdam doloribus neque fuga iure, tempore cum repellendus? Ut repudiandae impedit aperiam harum. Itaque iste autem reiciendis.</span>
-                                </div>
+                                {comments.map(function (commentObj, idx) {
+                                    return (
+                                        Object.entries(commentObj).map(function ([key, value]) {
+                                            return (
+                                                <div className="comment" key={idx}>
+                                                    <div id="user-name">{key}</div>
+                                                    <div>{value}</div>
+                                                </div>
+                                            )
+                                        })
+                                    )
+                                })}
+                            </div>
+                            <div className="comment-box">
+                                <input type="text" placeholder="Add a Commment..."
+                                    onChange={function (e) {
+                                        if(e.target.value){
+                                            e.target.nextSibling.removeAttribute("disabled")
+                                        }
+                                        else {
+                                            e.target.nextSibling.disabled = true;
+                                        }
+                                    }}
+                                    onKeyUp={function (e) {
+                                        if (e.key === 'Enter') {
+                                            postComment(videoObj, e)
+                                        }
+                                    }}
+                                />
+                                <button
+                                    onClick={postComment.bind(this, videoObj)}
+                                    // disabled
+                                >POST</button>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import firebase, { database, storage } from '../../FirebaseAuth/firebase';
-import uuid from 'react-uuid';
+import uuid from "react-uuid"
 
 function Upload(props) {
     let {setUploadLoader} = props 

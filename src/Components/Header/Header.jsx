@@ -4,13 +4,14 @@ import logo from '../Feed/Instagram-Logo.png';
 import { NavLink } from 'react-router-dom'
 import Upload from '../Feed/Upload';
 import { AuthContext } from '../../Context/AuthProvider';
+import Loader from "../Loader/Loader";
 
 function Header(props) {
     let {currentUser} = useContext(AuthContext)
     let { user, setUploadLoader } = props
 
     return (
-        <div className = "header-container">
+        user ? <div className = "header-container">
             <div className="logo-container">
                 <img src={logo} alt="Instagram" />
             </div>
@@ -19,7 +20,7 @@ function Header(props) {
                 <Upload user = {user} uid = {currentUser.uid} setUploadLoader = {setUploadLoader}></Upload>
                 {user ? <NavLink to = "/profile"><img src={user.profileUrl} alt="DP" className = "icons" id = "profilePic" /></NavLink> : <></>}
             </div>
-        </div>
+        </div> : <Loader></Loader>
     )
 }
 

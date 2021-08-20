@@ -105,13 +105,16 @@
 
 .reels-container .reel-container .comment-container{
     max-height: 12rem;
-    padding: 0 20px 10px;
-    /* background-color:red; */
+    /* padding: 0 20px 10px; */
 }
 
 .reels-container .reel-container .comment-container .likes{
     font-weight: 600;
-    margin-bottom: 10px;
+    margin: 0 20px 10px;
+}
+
+.reels-container .reel-container .comment-container .comments{
+    margin: 0 20px 10px;
 }
 
 .reels-container .reel-container .comment-container .comments .comment{
@@ -126,9 +129,30 @@
     margin-right: 5px;
 }
 
-/* .reels-container .reel-container .comment-container .comments .comment #user-comment{
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
-} */
+.reels-container .reel-container .comment-container .comment-box{
+    width: 100%;
+    padding: 20px 20px;
+    border-top: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reels-container .reel-container .comment-container .comment-box input{
+    width: 90%;
+    border: none;
+    outline: none;
+}
+
+.reels-container .reel-container .comment-container .comment-box button{
+    background: none;
+    color: #0095F6;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.reels-container .reel-container .comment-container .comment-box button:disabled{
+    color: rgba(0, 149, 246, 0.4);
+    cursor: default;
+}
