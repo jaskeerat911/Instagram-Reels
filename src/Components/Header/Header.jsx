@@ -7,8 +7,12 @@ import { AuthContext } from '../../Context/AuthProvider';
 import Loader from "../Loader/Loader";
 
 function Header(props) {
-    let {currentUser} = useContext(AuthContext)
+    let {genericLogout, currentUser} = useContext(AuthContext)
     let { user, setUploadLoader } = props
+
+    const logOutFn = async (e) => {
+        await genericLogout();
+    }
 
     return (
         user ? <div className = "header-container">
@@ -17,8 +21,14 @@ function Header(props) {
             </div>
             <div className="function-container">
                 <NavLink to="/feed"><span className=" icons material-icons" id = "home">home</span></NavLink>
-                <Upload user = {user} uid = {currentUser.uid} setUploadLoader = {setUploadLoader}></Upload>
-                {user ? <NavLink to = "/profile"><img src={user.profileUrl} alt="DP" className = "icons" id = "profilePic" /></NavLink> : <></>}
+                <Upload user={user} uid={currentUser.uid} setUploadLoader={setUploadLoader}></Upload>
+                <div class="dropdown">
+                    <img src={user.profileUrl} alt="DP" className="icons" id="profilePic"/>
+                    <div class="dropdown-content">
+                        <NavLink to = "/profile">Profile</NavLink>
+                        <div onClick = {logOutFn}>Log Out</div>
+                    </div>
+                </div>
             </div>
         </div> : <Loader></Loader>
     )

@@ -16,6 +16,10 @@ export default function AuthProvider({ children }) {
         return auth.createUserWithEmailAndPassword(email, password);
     }
 
+    async function genericLogout() {
+        auth.signOut();
+    }
+
     useEffect(() => {
         function action(user) {
             setCurrentUser(user);
@@ -28,6 +32,7 @@ export default function AuthProvider({ children }) {
     const value = {
         genericlogin,
         genericSignup,
+        genericLogout,
         currentUser
     }
 

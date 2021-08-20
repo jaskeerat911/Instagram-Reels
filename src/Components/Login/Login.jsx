@@ -4,6 +4,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider'
 import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
 
 function Login(props) {
     let [email, setEmail] = useState("");
@@ -21,7 +22,9 @@ function Login(props) {
         }
         catch(err) {
             setLoginLoader(false);
-            setError(err.message);
+            setError("Invalid Email or Passoword");
+            setEmail("");
+            setPassword("");
             setTimeout(() => {
                 setError(false);
             }, 2000);
@@ -82,7 +85,7 @@ function Login(props) {
                                 Don't have an account?&nbsp;<NavLink className = "nav-link" to = "/signup">Sign Up</NavLink>
                             </div>
                         </div>
-                        {error ? <h1>{error}</h1> : <></>}
+                        {error ? <Error errorTitle = "Failed to Log In" error = {error}></Error> : <></>}
                     </div>
     )
 }

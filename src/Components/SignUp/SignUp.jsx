@@ -4,12 +4,14 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
 import { storage, database } from "../../FirebaseAuth/firebase";
 import { NavLink } from "react-router-dom";
+import Error from "../Error/Error";
 
 function SignUp(props) {
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [fullName, setFullName] = useState("");
     let [file, setFile] = useState(null);
+    let [error, setError] = useState("");
 
     let { genericSignup, currentUser } = useContext(AuthContext);
 
@@ -60,7 +62,30 @@ function SignUp(props) {
                 });
             }
         } catch (err) {
-            console.log(err);
+            console.log(fullName)
+            if (!email) {
+                setError("Email Field is Empty");
+            }
+            else if (!fullName) {
+                setError("Name Field is Empty");
+            }
+            else if (!file) {
+                setError("Please upload your profile picture");
+            }
+            else if (!password) {
+                setError("Password Field is Empty");
+            }
+            else {
+                setError("Email is already existed");
+                setEmail("");
+                setFullName("");
+                setPassword("");
+                setFile(null);
+            }
+
+            setTimeout(() => {
+                setError(false);
+            }, 2000);
         }
     };
 
@@ -130,6 +155,7 @@ function SignUp(props) {
                     Have an account?&nbsp;<NavLink className = "nav-link" to = "/login">Log In</NavLink>
                 </div>
             </div>
+            {error ? <Error errorTitle = "Failed to Sign Up" error = {error}></Error> : <></>}
         </div>
     );
 }
