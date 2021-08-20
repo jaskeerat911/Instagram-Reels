@@ -4,7 +4,6 @@ import Header from '../Header/Header';
 import { AuthContext } from '../../Context/AuthProvider';
 import { database } from '../../FirebaseAuth/firebase';
 import Loader from '../Loader/Loader';
-import reel from "./reel.mp4"
 
 function Profile() {
     let { currentUser } = useContext(AuthContext);
