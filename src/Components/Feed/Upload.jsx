@@ -35,7 +35,7 @@ function Upload(props) {
                         videoUrl: downloadUrl,
                         authorName: user.fullName,
                         authourDPUrl: user.profileUrl,
-                        likes: 0,
+                        likes: [],
                         comments: [],
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     });

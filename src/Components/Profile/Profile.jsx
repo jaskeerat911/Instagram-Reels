@@ -12,12 +12,14 @@ function Profile() {
     let [uploadLoader, setUploadLoader] = useState(false);
 
     useEffect(() => {
-        async function data() {
-            let user = await database.users.doc(currentUser.uid).get();
-            setUser(user.data());
-        }
-        data();
-    }, []);
+        const user = database.users.doc(currentUser.uid).onSnapshot((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            setUser(doc.data());
+        });
+        return () => {
+            user();
+        };
+    }, [currentUser]);
 
     useEffect(() => {
         async function data() {
@@ -34,7 +36,7 @@ function Profile() {
     },[reels])
 
     return (
-        user ?<div className="profile-container">
+        user ? <div className="profile-container">
                 <Header user={user} setUploadLoader = {setUploadLoader}></Header>
                 {uploadLoader ? <div className="linear-activity">
                                     <div className="indeterminate"></div>
@@ -53,11 +55,11 @@ function Profile() {
                     <div className="posts-container">
                         <div className="title"><span className="material-icons-outlined">apps</span>&nbsp;POSTS</div>
                     <div className="posts">
-                        {reels.map(function (videoObj, idx) {
+                        {reels.map(function (reel, idx) {
                             return (
-                                <div className="post-container">
+                                <div className="post-container" key= {idx}>
                                     <video
-                                        src={videoObj.videoUrl}
+                                        src={reel.videoUrl}
                                         autoPlay={false}
                                     ></video>
                                 </div>

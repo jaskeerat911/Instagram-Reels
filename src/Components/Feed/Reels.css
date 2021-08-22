@@ -114,7 +114,9 @@
 }
 
 .reels-container .reel-container .comment-container .comments{
+    max-height: 75px;
     margin: 0 20px 10px;
+    overflow-y: auto;
 }
 
 .reels-container .reel-container .comment-container .comments .comment{
