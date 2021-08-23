@@ -70,7 +70,8 @@ function SignUp(props) {
             history.push('/feed');
 
         } catch (err) {
-            console.log(fullName)
+            setLoader(false)
+            console.log(file)
             if (!email) {
                 setError("Email Field is Empty");
             }
