@@ -27,7 +27,9 @@ function Profile() {
 
             let reels = [];
             entries.forEach((entry) => {
-                reels.push(entry.data());
+                let newEntry = entry.data();
+                if(newEntry?.authorName === user?.fullName )
+                    reels.push(newEntry);
             })
 
             setReels(reels);
