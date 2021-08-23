@@ -8,7 +8,7 @@ function Likes(props) {
     useEffect(() => {
         let check = reelData.likes.includes(userData?.userId)?true:false;
         setLike(check);
-    }, [reelData])
+    }, [reelData, userData?.userId])
     
     const handleLike = () => {
         if (like) {

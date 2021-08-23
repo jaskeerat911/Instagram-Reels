@@ -10,7 +10,6 @@
 .header-container .logo-container {
     height: 100%;
     width: 12rem;
-    /* background-color: red; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,4 +118,15 @@
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+@media only screen and (max-width: 768px){
+    .header-container{
+        justify-content: space-between;
+    }
+
+    .header-container .logo-container img {
+        width: 7rem;
+    }
+
 }

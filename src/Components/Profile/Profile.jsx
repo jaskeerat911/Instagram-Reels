@@ -35,7 +35,7 @@ function Profile() {
             setReels(reels);
         }
         data();
-    },[reels])
+    },[reels, user?.fullName])
 
     return (
         user ? <div className="profile-container">
