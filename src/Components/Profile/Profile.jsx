@@ -8,7 +8,7 @@ import Loader from '../Loader/Loader';
 function Profile() {
     let { currentUser } = useContext(AuthContext);
     let [user, setUser] = useState(null);
-    let [reels, setReels] = useState([]);
+    let [posts, setPosts] = useState([]);
     let [uploadLoader, setUploadLoader] = useState(false);
 
     useEffect(() => {
@@ -23,19 +23,19 @@ function Profile() {
 
     useEffect(() => {
         async function data() {
-            let entries = await database.reels.orderBy("createdAt", "desc").get();
+            let entries = await database.posts.orderBy("createdAt", "desc").get();
 
-            let reels = [];
+            let posts = [];
             entries.forEach((entry) => {
                 let newEntry = entry.data();
                 if(newEntry?.authorName === user?.fullName )
-                    reels.push(newEntry);
+                    posts.push(newEntry);
             })
 
-            setReels(reels);
+            setPosts(posts);
         }
         data();
-    },[reels, user?.fullName])
+    },[posts, user?.fullName])
 
     return (
         user ? <div className="profile-container">
@@ -50,20 +50,23 @@ function Profile() {
                         </div>
                         <div className="bio">
                             <div id="user-name">{user.fullName}</div>
-                        <div id="count-posts"><span>{reels.length}</span> posts</div>
+                        <div id="count-posts"><span>{posts.length}</span> posts</div>
                         </div>
                     </div>
                     <hr />
                     <div className="posts-container">
                         <div className="title"><span className="material-icons-outlined">apps</span>&nbsp;POSTS</div>
                     <div className="posts">
-                        {reels.map(function (reel, idx) {
+                        {posts.map(function (post, idx) {
                             return (
                                 <div className="post-container" key= {idx}>
-                                    <video
-                                        src={reel.videoUrl}
-                                        autoPlay={false}
-                                    ></video>
+                                    {post.fileType.split("/")[0] === "video" ? 
+                                        <video
+                                            src={post.postUrl}
+                                            autoPlay={false}
+                                        ></video> : 
+                                        <img src={post.postUrl} alt="Post" />
+                                    }
                                 </div>
                             )
                         })}

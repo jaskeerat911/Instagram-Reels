@@ -3,27 +3,26 @@ import { database } from '../../FirebaseAuth/firebase';
 
 function Likes(props) {
     let [like, setLike] = useState(null);
-    let { userData, reelData } = props;
+    let { userData, postData } = props;
 
     useEffect(() => {
-        let check = reelData.likes.includes(userData?.userId)?true:false;
+        let check = postData.likes.includes(userData?.userId)?true:false;
         setLike(check);
-    }, [reelData, userData?.userId])
+    }, [postData, userData?.userId])
     
     const handleLike = () => {
         if (like) {
-            let likeArr = reelData.likes.filter(ele => {
+            let likeArr = postData.likes.filter(ele => {
                 return ele !== userData?.userId;
             });
 
-            database.reels.doc(reelData.videoId).update({
+            database.posts.doc(postData.postId).update({
                 likes : likeArr
             })
         }
         else {
-            let likeArr = [...reelData.likes, userData.userId];
-            console.log(likeArr)   
-            database.reels.doc(reelData.videoId).update({
+            let likeArr = [...postData.likes, userData.userId];
+            database.posts.doc(postData.postId).update({
                 likes : likeArr
             })
         }

@@ -93,7 +93,7 @@ hr{
     margin-bottom: 20px;
 }
 
-.profile-container .user-profile-container .posts-container .posts .post-container video{
+.profile-container .user-profile-container .posts-container .posts .post-container video, .profile-container .user-profile-container .posts-container .posts .post-container img{
     height: 100%;
     width: 100%;
 }

@@ -1,18 +1,32 @@
-import React from 'react'
+import React, {useState} from 'react'
 import firebase, { database, storage } from '../../FirebaseAuth/firebase';
 import uuid from "react-uuid"
+import Error from '../Error/Error';
 
 function Upload(props) {
     let {setUploadLoader} = props 
+    let [error, setError] = useState(false);
+
     
     const handleUpload = async (e) => {
         let file = e?.target?.files[0];
-        
-        if (file != null)
+        if (file == null) {
+            setError("Please select a file");
+            setTimeout(() => {
+                setError(false);
+            }, 2000);
+        }
+        else if (file.size / (1024 * 1024) > 100) {
+            setError("The selected file is very big");
+            setTimeout(() => {
+                setError(false);
+            }, 2000);
+        }
+        else {
             try {
                 let ruid = uuid();
                 
-                const uploadListener = storage.ref("/reels/" + ruid).put(file);
+                const uploadListener = storage.ref("/posts/" + ruid).put(file);
                 uploadListener.on("state_changed", onprogress, onerror, onsucess);
 
                 function onprogress(snapshot) {
@@ -30,24 +44,26 @@ function Upload(props) {
                     
                     let { user, uid } = props;
                     
-                    database.reels.doc(ruid).set({
-                        videoId: ruid,
-                        videoUrl: downloadUrl,
+                    database.posts.doc(ruid).set({
+                        postId: ruid,
+                        postUrl: downloadUrl,
                         authorName: user.fullName,
                         authourDPUrl: user.profileUrl,
+                        fileType: file.type,
                         likes: [],
                         comments: [],
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     });
 
-                    let updatedReelsIds = [...user.reels, ruid];
+                    let updatedPostsIds = [...user.posts, ruid];
                     
                     database.users.doc(uid).update({
-                        reels: updatedReelsIds,
+                        posts: updatedPostsIds,
                     });
                     setUploadLoader(false);
                 }
-            } catch (err) {}
+            } catch (err) { }
+        }
     }
 
     return (
@@ -59,9 +75,10 @@ function Upload(props) {
             >add_box</span>
             <input
                 className="reel-upload"
-                type="file" accept = "video/*"
+                type="file" accept = "video/*, image/*"
                 onChange={handleUpload}
             />
+            {error ? <Error errorTitle = "Unable to Upload File" error = {error}></Error> : <></>}
         </div>
     )
 }

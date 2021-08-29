@@ -1,4 +1,4 @@
-.reels-container{
+.posts-container{
     width: 100%;
     background-color: #fafafa;
     display: flex;
@@ -7,14 +7,14 @@
     padding: 30px 0;
 }
 
-.reels-container .reel-container{
+.posts-container .post-container{
     width: 40rem;
     background-color: #fff;
     border: 1px solid lightgray;
     margin-bottom: 20px;
 }
 
-.reels-container .reel-container .user-container{
+.posts-container .post-container .user-container{
     width: 100%;
     height: 4rem;
     display: flex;
@@ -22,7 +22,7 @@
     align-items: center;
 }
 
-.reels-container .reel-container .user-container img{
+.posts-container .post-container .user-container img{
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -30,11 +30,11 @@
     cursor: pointer;
 }
 
-.reels-container .reel-container .user-container div{
+.posts-container .post-container .user-container div{
     font-weight: 500;
 }
 
-.reels-container .reel-container .video-container{
+.posts-container .post-container .video-container, .posts-container .post-container .image-container{
     width: 100%;
     background-color: black;
     display: flex;
@@ -42,7 +42,7 @@
     position: relative;
 }
 
-.reels-container .reel-container .video-container #play-icon{
+.posts-container .post-container .video-container #play-icon{
     color: rgba(255, 255, 255, 0.5);
     font-size: 10rem;
     position: absolute;
@@ -53,11 +53,11 @@
     transition: display 0.5s;
 }
 
-.reels-container .reel-container .video-container #play-icon:hover{
+.posts-container .post-container .video-container #play-icon:hover{
     color: rgba(255, 255, 255, 1);
 }
 
-.reels-container .reel-container .video-container #mute-icon{
+.posts-container .post-container .video-container #mute-icon{
     color: #fff;
     font-size: 20px;
     position: absolute;
@@ -67,12 +67,12 @@
     cursor: pointer;
 }
 
-.reels-container .reel-container .video-container video{
+.posts-container .post-container .video-container video, .posts-container .post-container .image-container img{
     height: 30rem;
     max-width: 100%;
 }
 
-.reels-container .reel-container .button-container{
+.posts-container .post-container .button-container{
     width: 100%;
     height: 3.5rem;
     display: flex;
@@ -80,13 +80,13 @@
     align-items: center;
 }
 
-.reels-container .reel-container .button-container .icons{
+.posts-container .post-container .button-container .icons{
     font-size: 34px;
     margin-right: 15px;
     cursor: pointer;
 }
 
-.reels-container .reel-container .button-container #like-icon.liked{
+.posts-container .post-container .button-container #like-icon.liked{
     color: red;
     animation: popup 0.2s linear;
 }
@@ -103,35 +103,35 @@
     }
 }
 
-.reels-container .reel-container .comment-container{
+.posts-container .post-container .comment-container{
     max-height: 12rem;
     /* padding: 0 20px 10px; */
 }
 
-.reels-container .reel-container .comment-container .likes{
+.posts-container .post-container .comment-container .likes{
     font-weight: 600;
     margin: 0 20px 10px;
 }
 
-.reels-container .reel-container .comment-container .comments{
+.posts-container .post-container .comment-container .comments{
     max-height: 75px;
     margin: 0 20px 10px;
     overflow-y: auto;
 }
 
-.reels-container .reel-container .comment-container .comments .comment{
+.posts-container .post-container .comment-container .comments .comment{
     display: flex;
     font-size: 15px;
     margin-bottom: 5px;
     text-overflow: ellipsis;
 }
 
-.reels-container .reel-container .comment-container .comments .comment #user-name{
+.posts-container .post-container .comment-container .comments .comment #user-name{
     font-weight: 600;
     margin-right: 5px;
 }
 
-.reels-container .reel-container .comment-container .comment-box{
+.posts-container .post-container .comment-container .comment-box{
     width: 100%;
     padding: 20px 20px;
     border-top: 1px solid lightgray;
@@ -139,13 +139,13 @@
     justify-content: space-between;
 }
 
-.reels-container .reel-container .comment-container .comment-box input{
+.posts-container .post-container .comment-container .comment-box input{
     width: 90%;
     border: none;
     outline: none;
 }
 
-.reels-container .reel-container .comment-container .comment-box button{
+.posts-container .post-container .comment-container .comment-box button{
     background: none;
     color: #0095F6;
     border: none;
@@ -154,13 +154,15 @@
     cursor: pointer;
 }
 
-.reels-container .reel-container .comment-container .comment-box button:disabled{
+.posts-container .post-container .comment-container .comment-box button:disabled{
     color: rgba(0, 149, 246, 0.4);
     cursor: default;
 }
 
 @media only screen and (max-width: 768px){
-    .reels-container .reel-container{
-        width: 90%;
+    .posts-container .post-container{
+        width: 100%;
+        border-left: none;
+        border-right: none;
     }
 }

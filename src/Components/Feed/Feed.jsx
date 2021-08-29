@@ -1,7 +1,7 @@
 import './Feed.css';
 import React, { useContext, useEffect, useState } from 'react'
 import Header from '../Header/Header';
-import Reels from './Reels';
+import Posts from './Posts';
 import { AuthContext } from '../../Context/AuthProvider'
 import { database } from '../../FirebaseAuth/firebase';
 import Loader from "../Loader/Loader"
@@ -29,7 +29,7 @@ function Feed() {
                 {uploadLoader ? <div className="linear-activity">
                     <div className="indeterminate"></div>
                 </div> : <></>}
-                <Reels user = {user}></Reels>
+                <Posts user = {user}></Posts>
             </div>
     
     )

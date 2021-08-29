@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 
 function Comments(props) {
     let [comments, setComments] = useState(null);
-    let { reelData } = props;
+    let { postData } = props;
 
     useEffect(() => {
-        let commentArr = [...reelData.comments];
+        let commentArr = [...postData.comments];
 
         setComments(commentArr);
-    }, [reelData])
+    }, [postData])
 
     return (
         comments != null ?

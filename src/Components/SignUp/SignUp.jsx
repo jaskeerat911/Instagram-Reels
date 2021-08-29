@@ -61,7 +61,7 @@ function SignUp(props) {
                     email: email,
                     fullName: fullName,
                     profileUrl: downloadUrl,
-                    reels: [],
+                    posts: [],
                     likes: [],
                     comments: [],
                 });
@@ -71,15 +71,11 @@ function SignUp(props) {
 
         } catch (err) {
             setLoader(false)
-            console.log(file)
             if (!email) {
                 setError("Email Field is Empty");
             }
             else if (!fullName) {
                 setError("Name Field is Empty");
-            }
-            else if (!file) {
-                setError("Please upload your profile picture");
             }
             else if (!password) {
                 setError("Password Field is Empty");

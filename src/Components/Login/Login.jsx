@@ -44,6 +44,7 @@ function Login(props) {
         if (currentUser) {
             props.history.push('/feed')
         }
+        return;
     })
  
     return (
@@ -78,7 +79,6 @@ function Login(props) {
                                     <button className = "login-btn" onClick={loginFn}>Log In</button>
                                 </div>
                             </div>
-                            {/* {error ? <h1>{error}</h1> : <></>} */}
                         </div>
                         <div className="input-container">
                             <div className = "signup-nav-container">
