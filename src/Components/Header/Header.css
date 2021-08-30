@@ -112,9 +112,9 @@
     background-color: #f1f1f1;
 }
 
-.header-container .function-container .dropdown:hover .dropdown-content {
+/* .header-container .function-container .dropdown:hover .dropdown-content {
     display: block;
-}
+} */
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;

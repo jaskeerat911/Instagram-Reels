@@ -13,6 +13,16 @@ function Header(props) {
         await genericLogout();
     }
 
+    const handleDropdown = () => {
+        let dropdownContent = document.querySelector(".header-container .function-container .dropdown-content");
+        if (dropdownContent.style.display === "none") {
+            dropdownContent.style.display = "block";
+        }
+        else {
+            dropdownContent.style.display = "none";
+        }
+    }
+
     return (
         <div className="header-container">
             
@@ -22,7 +32,7 @@ function Header(props) {
             <div className="function-container">
                 <NavLink to="/feed"><span className=" icons material-icons" id = "home">home</span></NavLink>
                 <Upload user={user} uid={currentUser.uid} setUploadLoader={setUploadLoader}></Upload>
-                <div className="dropdown">
+                <div className="dropdown" onClick = {handleDropdown}>
                     <img src={user?.profileUrl} alt="DP" className="icons" id="profilePic"/>
                     <div className="dropdown-content">
                         <NavLink to = "/profile">Profile</NavLink>

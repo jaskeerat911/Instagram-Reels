@@ -1,7 +1,7 @@
 import "./Posts.css";
 import React, { useEffect, useState } from "react";
-import Likes from "./Likes";
-import Comments from "./Comments";
+import Likes from "../Likes";
+import Comments from "../Comments";
 import { database } from "../../FirebaseAuth/firebase";
 import Loader from "../Loader/Loader";
 
@@ -20,7 +20,7 @@ function Posts(props) {
 
             setPosts(posts);
         }
-        data();
+        return data();  
     }, [posts]);
 
     const postComment = async (videoObj, comment) => {

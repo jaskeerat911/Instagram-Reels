@@ -139,7 +139,7 @@ function SignUp(props) {
                                 onKeyUp = {focusListener}
                             />
                         </div>
-                        <div className="file-upload-wrapper" data-text = 'Select your Profie Pic'>
+                        <div className="file-upload-wrapper" data-text = 'Select your Profile Pic'>
                             <input
                                 className="login-input"
                                 type="file" accept = "image/*"

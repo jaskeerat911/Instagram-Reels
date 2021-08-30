@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { database } from '../../FirebaseAuth/firebase';
+import { database } from '../FirebaseAuth/firebase';
 
 function Likes(props) {
     let [like, setLike] = useState(null);
@@ -19,12 +19,15 @@ function Likes(props) {
             database.posts.doc(postData.postId).update({
                 likes : likeArr
             })
+            setLike(false);
         }
         else {
             let likeArr = [...postData.likes, userData.userId];
             database.posts.doc(postData.postId).update({
                 likes : likeArr
             })
+
+            setLike(true);
         }
     }
 
