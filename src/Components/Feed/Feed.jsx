@@ -9,7 +9,7 @@ import Loader from "../Loader/Loader"
 function Feed() {
     let { currentUser } = useContext(AuthContext);
     let [user, setUser] = useState(null);
-    let [uploadLoader, setUploadLoader] = useState(false);
+    let [uploadLoader, setUploadLoader] = useState(0);
 
     useEffect(() => {
         const user = database.users.doc(currentUser.uid).onSnapshot((doc) => {
@@ -26,9 +26,11 @@ function Feed() {
         user == null ? <Loader></Loader> :
             <div className="feed-container">
                 <Header user = {user} setUploadLoader={setUploadLoader}></Header>
-                {uploadLoader ? <div className="linear-activity">
-                    <div className="indeterminate"></div>
+                {uploadLoader > 0 ? <div className="linear-activity">
+                    <div className="indeterminate" style={{ width: `${uploadLoader}%`}}></div>
                 </div> : <></>}
+                {/* {uploadLoader === 0 ? 
+                    <input type="range" min = "0" max = "100" value = {uploadLoader} className='upload-progress-bar' /> : <></>} */}
                 <Posts user = {user}></Posts>
             </div>
     
